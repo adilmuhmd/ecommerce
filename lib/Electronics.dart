@@ -104,6 +104,11 @@ class _ElectronicsState extends State<Electronics> {
                                   ),
                                   Row(
                                     children: [
+                                      Text('Price:${post.price}',
+                                        style: TextStyle(
+                                          fontFamily: "Gotham"
+                                        ),
+                                      ),
                                       Container(
                                         child: Text(
                                           // 'Price:${post.price}\n'
