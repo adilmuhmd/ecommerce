@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 
 class Electronics extends StatefulWidget {
   const Electronics({super.key});
-
   @override
   State<Electronics> createState() => _ElectronicsState();
 }
@@ -15,7 +14,7 @@ class _ElectronicsState extends State<Electronics> {
   Future<List<MediaPosts>>? futurePosts;
 
   Future<List<MediaPosts>> fetchPosts() async {
-    final response = await http.get(Uri.parse('https://fakestoreapi.com/products/category/electronics'));
+    final response = await http.get(Uri.parse('https://fakestoreapi.com/products'));
     // Check response
     if (response.statusCode == 200) {
       List jsonResponse = jsonDecode(response.body);
@@ -43,7 +42,16 @@ class _ElectronicsState extends State<Electronics> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          backgroundColor: Colors.blueAccent,
+          title: Text("Electronics",
+          style: TextStyle(
+            color: Colors.white,
+            fontSize:30,
+            fontWeight: FontWeight.bold
+          ),
+          ),
+        ),
         backgroundColor: Colors.white,
         body: Center(
           child: Column(
@@ -63,84 +71,95 @@ class _ElectronicsState extends State<Electronics> {
                     return Expanded(
                       child: ListView.builder(
 
-                        scrollDirection: Axis.vertical, // Horizontal scrolling
                         itemCount: snapshot.data!.length,
                         itemBuilder: (context, index) {
                           final post = snapshot.data![index];
-                          return Container(
-                            width: 20,
-                            color: Colors.white,
-                            child: Column(
-                              children: [
-                                Container(
-                                  child: Center(
-                                    child: Text('Title:${post.title}\n',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold
+                          if(post.category=="electronics"){
+
+                            return Container(
+                              width: 20,
+                              color: Colors.white,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    child: Center(
+                                      child: Text('${post.title}',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold
+                                        ),
+                                      ),
                                     ),
-                                    ),
+
                                   ),
 
-                                ),
-
-                            Container(
-                              height: 200,
-                              width:double.infinity,
-                              child: Image(image: NetworkImage('${post.image}')
-                              )
-                            ),
-                                Row(
-                                  children: [
-                                    Container(
-                                      child: Text(
-                                            // 'Price:${post.price}\n'
-                                            // 'TITLE:${post.category}\n'
-                                            'RATING: ${post.rating['rate']} (${post.rating['count']} reviews)',
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 50,
-                                    ),
-                                    Container(
-                                      child: FloatingActionButton(
-
-                                        onPressed: () {
-                                          setState(() {
-
-                                          });
-                                        },
-                                        child: Text("Add to Cart",
+                                  Container(
+                                      height: 200,
+                                      width:double.infinity,
+                                      child: Image(image: NetworkImage('${post.image}')
+                                      )
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        child: Text(
+                                          // 'Price:${post.price}\n'
+                                          // 'TITLE:${post.category}\n'
+                                          'RATING: ${post.rating['rate']} (${post.rating['count']} reviews)',
                                           style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 15,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold
                                           ),
-
                                         ),
-                                        backgroundColor: Colors.blueAccent,
                                       ),
-                                      height: 40,
-                                      width: 100,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                  ],
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                ),
+                                      SizedBox(
+                                        width: 50,
+                                      ),
+                                      Container(
+                                        child: FloatingActionButton(
 
-                                SizedBox(
-                                  height: 50,
-                                ),
+                                          onPressed: () {
+                                            setState(() {
 
-                              ],
-                            ),
-                          );
+                                            });
+                                          },
+                                          child: Text("Add to Cart",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 15,
+                                            ),
+
+                                          ),
+                                          backgroundColor: Colors.blueAccent,
+                                        ),
+                                        height: 40,
+                                        width: 100,
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                    ],
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                  ),
+
+                                  SizedBox(
+                                    height: 100,
+                                  ),
+
+                                ],
+                              ),
+                            );
+
+                          }
+                          else{
+                            return Container();
+                          }
+
+
                         },
                       ),
                     );
