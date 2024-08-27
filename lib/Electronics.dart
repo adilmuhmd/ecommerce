@@ -106,7 +106,7 @@ class _ElectronicsState extends State<Electronics> {
                                     children: [
                                       Container(
                                         child: Text(
-                                          // 'Price:${post.price}\n'
+                                          'Price:${post.price}\n'
                                           // 'TITLE:${post.category}\n'
                                           'RATING: ${post.rating['rate']} (${post.rating['count']} reviews)',
                                           style: TextStyle(
